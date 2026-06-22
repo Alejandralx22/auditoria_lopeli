@@ -20,10 +20,6 @@ La revisión se realiza sobre DVWA en un entorno controlado, con tres ataques de
 - Tokens y referencias bancarias.
 - Disponibilidad del portal y del servidor web.
 
-### Estructura documental
-
-La evidencia y el análisis se organizan en `docs_lopeli/`, mientras que las capturas se guardan en `docs_lopeli/img_lopeli/` y se incrustan en la aplicación React.
-
 ### Conclusión
 
 El riesgo crítico no proviene solo de la vulnerabilidad técnica, sino del contexto: en una fintech, una fuga de datos o una ejecución remota puede traducirse en fraude, pérdida de confianza y detención operativa.

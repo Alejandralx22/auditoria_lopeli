@@ -409,10 +409,6 @@ const Resumen = () => (
       <p>
         Este informe técnico detalla la auditoría de seguridad preventiva realizada para la plataforma <strong>PagaFacil</strong>. En el ecosistema Fintech, la ciberseguridad es el pilar de la confianza de negocio. Un hallazgo técnico en la capa web no es solo un fallo de código, representa un riesgo crítico de pérdida de capital y reputación.
       </p>
-      <h3 className="text-xl font-bold mt-6">Estructura del Proyecto</h3>
-      <p className="text-sm">
-        De acuerdo con la rúbrica, la auditoría completa está estructurada en el directorio <code className="font-mono text-xs text-[#8661C1] dark:text-[#98d9f7]">docs_lopeli/</code> con todos los informes requeridos y un subdirectorio exclusivo para las capturas de pantalla de evidencias: <code className="font-mono text-xs text-[#8661C1] dark:text-[#98d9f7]">docs_lopeli/img_lopeli/</code>.
-      </p>
     </div>
   </div>
 );
@@ -685,11 +681,36 @@ const Prompts = () => (
       <h1 className="text-3xl font-extrabold custom-text mt-1">Bitácora de Uso de IA</h1>
     </div>
     <div className="space-y-4 custom-text">
-      <div className="p-5 bg-[#2E294E]/10 dark:bg-white/5 rounded-xl border-l-4 border-[#8661C1] italic text-sm transition-all duration-300 hover:scale-[1.01]">
-        "ChatGPT / Gemini: Genera una matriz de riesgo 5x5 para el análisis de una Fintech, priorizando ataques de Inyección SQL y desvíos de transacciones."
+      <div className="p-5 bg-[#CAA8F5]/15 dark:bg-white/5 rounded-xl border-l-4 border-[#592E83] text-sm transition-all duration-300 hover:scale-[1.01]">
+        <p className="font-bold mb-2">Prompt 1 - Resumen y arquitectura</p>
+        <p className="custom-text-muted text-xs leading-relaxed">
+          Herramienta: Gemini. Prompt: “Redacta un resumen ejecutivo para una auditoría web de una fintech ficticia llamada PagaFacil, destacando portal de clientes, activos críticos y contexto de negocio.”
+        </p>
       </div>
+
+      <div className="p-5 bg-[#CAA8F5]/15 dark:bg-white/5 rounded-xl border-l-4 border-[#5BE4F7] text-sm transition-all duration-300 hover:scale-[1.01]">
+        <p className="font-bold mb-2">Prompt 2 - SQL Injection</p>
+        <p className="custom-text-muted text-xs leading-relaxed">
+          Herramienta: Gemini. Prompt: “Explica por qué funciona una SQLi con payload ' OR '1'='1 en DVWA, incluye CVSS 3.1 y defensas como consultas parametrizadas.”
+        </p>
+      </div>
+
+      <div className="p-5 bg-[#CAA8F5]/15 dark:bg-white/5 rounded-xl border-l-4 border-[#9984D4] text-sm transition-all duration-300 hover:scale-[1.01]">
+        <p className="font-bold mb-2">Prompt 3 - XSS y comandos</p>
+        <p className="custom-text-muted text-xs leading-relaxed">
+          Herramienta: Gemini. Prompt: “Describe XSS reflejado y command injection en una aplicación web vulnerable, con recomendaciones de prevención y mitigación.”
+        </p>
+      </div>
+
+      <div className="p-5 bg-[#CAA8F5]/15 dark:bg-white/5 rounded-xl border-l-4 border-[#230C33] text-sm transition-all duration-300 hover:scale-[1.01]">
+        <p className="font-bold mb-2">Prompt 4 - Base React para App.jsx</p>
+        <p className="custom-text-muted text-xs leading-relaxed">
+          Herramienta: Gemini. Prompt: “Crea la base de una aplicación React con Vite para una auditoría de seguridad web, con navegación lateral, secciones por archivo Markdown y un componente visual para la matriz de riesgo.”
+        </p>
+      </div>
+
       <p className="text-xs custom-text-muted leading-relaxed">
-        Se aplicaron modelos LLM para la conceptualización inicial del impacto financiero y para automatizar la simulación de vectores de ataque de seguridad en el modelo de negocio de PagaFacil.
+        La IA se usó como apoyo para redactar, estructurar y acelerar el armado del informe, pero cada respuesta fue verificada y adaptada al contexto de PagaFacil y a la pauta de evaluación.
       </p>
     </div>
   </div>
