@@ -3,24 +3,24 @@ import React, { useState, useEffect } from 'react';
 // Inyección de estilos CSS personalizados con las variables de la paleta solicitada y animaciones avanzadas
 const themeStyles = `
   :root {
-    --color-bg: #F7F5FA;          /* Fondo muy claro con matiz lila */
-    --color-card: #FFFFFF;        /* Tarjetas en modo claro */
-    --color-text-main: #2E294E;   /* Deep Indigo como texto principal */
-    --color-text-muted: #4B5267;  /* Slate Gray para textos secundarios */
-    --color-primary: #8661C1;     /* Vibrant Purple para elementos activos/botones */
-    --color-secondary: #BE97C6;   /* Lilac para bordes y acentos secundarios */
-    --color-accent: #98d9f7;      /* Pastel Pink para highlights */
-    --color-border: #BE97C6;
+    --color-bg: #CAA8F5;          /* Fondo principal en modo claro */
+    --color-card: #9984D4;        /* Superficies de tarjeta */
+    --color-text-main: #230C33;   /* Texto principal con máximo contraste */
+    --color-text-muted: #592E83;  /* Texto secundario y descripciones */
+    --color-primary: #5BE4F7;     /* Acción primaria y acentos */
+    --color-secondary: #9984D4;   /* Bordes y acentos secundarios */
+    --color-accent: #5BE4F7;      /* Resaltados */
+    --color-border: #592E83;
   }
   .dark {
-    --color-bg: #1D1A33;          /* Versión más oscura y con contraste de #2E294E */
-    --color-card: #2E294E;        /* Deep Indigo como fondo de tarjetas */
-    --color-text-main: #98d9f7;   /* Pastel Pink para alto contraste en texto oscuro */
-    --color-text-muted: #BE97C6;  /* Lilac para textos descriptivos */
-    --color-primary: #8661C1;     /* Vibrant Purple para botones */
-    --color-secondary: #4B5267;   /* Slate Gray para bordes en modo oscuro */
-    --color-accent: #2E294E;      
-    --color-border: #4B5267;
+    --color-bg: #230C33;          /* Fondo principal en modo oscuro */
+    --color-card: #592E83;        /* Superficies de tarjeta */
+    --color-text-main: #CAA8F5;   /* Texto principal legible siempre */
+    --color-text-muted: #5BE4F7;  /* Texto secundario legible siempre */
+    --color-primary: #5BE4F7;     /* Acción primaria y acentos */
+    --color-secondary: #9984D4;   /* Bordes y acentos secundarios */
+    --color-accent: #9984D4;      
+    --color-border: #5BE4F7;
   }
 
   .custom-bg { background-color: var(--color-bg); transition: background-color 0.5s ease, color 0.3s ease; }
@@ -30,7 +30,7 @@ const themeStyles = `
   }
   .custom-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px -10px rgba(134, 97, 193, 0.3);
+    box-shadow: 0 12px 24px -10px rgba(91, 228, 247, 0.25);
   }
   .custom-text { color: var(--color-text-main); }
   .custom-text-muted { color: var(--color-text-muted); }
@@ -50,36 +50,44 @@ const themeStyles = `
   .animate-progress {
     animation: progress-loading 1.5s infinite linear;
   }
+
+  .text-\[\#8661C1\], .dark .dark\:text-\[\#8661C1\] { color: var(--color-primary) !important; }
+  .text-\[\#BE97C6\], .dark .dark\:text-\[\#BE97C6\] { color: var(--color-secondary) !important; }
+  .text-\[\#98d9f7\], .dark .dark\:text-\[\#98d9f7\] { color: var(--color-accent) !important; }
+  .text-\[\#2E294E\], .dark .dark\:text-\[\#2E294E\] { color: var(--color-text-main) !important; }
+  .text-\[\#1F2433\], .dark .dark\:text-\[\#1F2433\] { color: var(--color-text-main) !important; }
+  .text-\[\#5F687A\], .dark .dark\:text-\[\#5F687A\] { color: var(--color-text-muted) !important; }
+  .text-\[\#4B5267\], .dark .dark\:text-\[\#4B5267\] { color: var(--color-text-muted) !important; }
+  .bg-\[\#8661C1\], .dark .dark\:bg-\[\#8661C1\] { background-color: var(--color-primary) !important; }
+  .bg-\[\#BE97C6\], .dark .dark\:bg-\[\#BE97C6\] { background-color: var(--color-secondary) !important; }
+  .bg-\[\#98d9f7\], .dark .dark\:bg-\[\#98d9f7\] { background-color: var(--color-accent) !important; }
+  .bg-\[\#2E294E\], .dark .dark\:bg-\[\#2E294E\] { background-color: var(--color-bg) !important; }
+  .bg-\[\#1D1A33\], .dark .dark\:bg-\[\#1D1A33\] { background-color: var(--color-bg) !important; }
+  .border-\[\#8661C1\], .dark .dark\:border-\[\#8661C1\] { border-color: var(--color-primary) !important; }
+  .border-\[\#BE97C6\], .dark .dark\:border-\[\#BE97C6\] { border-color: var(--color-secondary) !important; }
+  .border-\[\#98d9f7\], .dark .dark\:border-\[\#98d9f7\] { border-color: var(--color-accent) !important; }
+  .border-\[\#2E294E\], .dark .dark\:border-\[\#2E294E\] { border-color: var(--color-border) !important; }
 `;
 
+const evidenceImages = {
+  sqli: new URL('../docs_lopeli/img_lopeli/sqli_lopeli.png', import.meta.url).href,
+  xss: new URL('../docs_lopeli/img_lopeli/xss_lopeli.png', import.meta.url).href,
+  comandos: new URL('../docs_lopeli/img_lopeli/comandos_lopeli.png', import.meta.url).href,
+};
+
 // Componente para indicar dónde van las capturas de pantalla de la auditoría con botón de copiado interactivo
-const ImagePlaceholder = ({ path, title }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(path);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
+const ImagePlaceholder = ({ title, imageSrc }) => {
   return (
-    <div className="my-6 border-2 border-dashed custom-border rounded-xl p-6 bg-black/5 dark:bg-white/5 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-[#8661C1] hover:bg-black/10 dark:hover:bg-white/10 group relative overflow-hidden">
+    <div className="my-6 border-2 border-dashed custom-border rounded-xl p-4 sm:p-6 bg-black/10 dark:bg-white/10 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-[#5BE4F7] hover:bg-black/15 dark:hover:bg-white/15 group relative overflow-hidden">
       <svg className="w-12 h-12 custom-text-muted mb-2 opacity-80 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
-      <p className="text-sm font-bold custom-text group-hover:text-[#8661C1] transition-colors duration-250">{title}</p>
-      <p className="text-xs custom-text-muted mt-1">Ubicación física sugerida para tu imagen en el proyecto:</p>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-        <div className="px-3 py-1.5 bg-slate-900 text-[#98d9f7] rounded-md font-mono text-xs select-all break-all border border-slate-700">
-          {path}
+      <p className="text-sm font-bold custom-text transition-colors duration-250">{title}</p>
+      {imageSrc && (
+        <div className="mt-4 w-full overflow-hidden rounded-xl border custom-border bg-[#CAA8F5]/20 dark:bg-[#592E83]/20 shadow-sm">
+          <img src={imageSrc} alt={title} className="block w-full h-auto object-contain bg-[#CAA8F5]/20 dark:bg-[#230C33]" />
         </div>
-        <button 
-          onClick={handleCopy}
-          className="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#8661C1] hover:bg-[#BE97C6] text-white active:scale-95"
-        >
-          {copied ? '¡Copiado! ✓' : 'Copiar Ruta'}
-        </button>
-      </div>
+      )}
     </div>
   );
 };
@@ -425,8 +433,8 @@ const SQLi = () => (
 
       {/* UBICACIÓN DE LA IMAGEN EXPLICADA */}
       <ImagePlaceholder 
-        path="docs_lopeli/img_lopeli/02_sqli_evidencia.png" 
         title="Captura del ataque SQL Injection en DVWA" 
+        imageSrc={evidenceImages.sqli}
       />
 
       <ExploitTerminal 
@@ -461,8 +469,8 @@ const XSS = () => (
 
       {/* UBICACIÓN DE LA IMAGEN EXPLICADA */}
       <ImagePlaceholder 
-        path="docs_lopeli/img_lopeli/03_xss_evidencia.png" 
         title="Captura de pantalla de XSS Stored en DVWA" 
+        imageSrc={evidenceImages.xss}
       />
 
       <ExploitTerminal 
@@ -497,8 +505,8 @@ const Comandos = () => (
 
       {/* UBICACIÓN DE LA IMAGEN EXPLICADA */}
       <ImagePlaceholder 
-        path="docs_lopeli/img_lopeli/04_comandos_evidencia.png" 
         title="Captura del comando inyectado ejecutando RCE" 
+        imageSrc={evidenceImages.comandos}
       />
 
       <ExploitTerminal 
@@ -724,12 +732,12 @@ export default function App() {
     ${darkMode ? 'bg-[#2E294E] border-[#4B5267]' : 'bg-[#F7F5FA] border-[#BE97C6]'}`;
 
   const sidebarTitleClassName = darkMode
-    ? 'text-lg font-black tracking-tight text-[#98d9f7] transition-all duration-300 group-hover:text-white'
-    : 'text-lg font-black tracking-tight text-[#2E294E] transition-all duration-300 group-hover:text-[#8661C1]';
+    ? 'text-lg font-black tracking-tight custom-text transition-all duration-300 group-hover:text-[#5BE4F7]'
+    : 'text-lg font-black tracking-tight custom-text transition-all duration-300 group-hover:text-[#592E83]';
 
   const sidebarLinkClassName = darkMode
-    ? 'flex items-center gap-2 text-xs font-bold text-[#BE97C6] hover:text-white transition-colors'
-    : 'flex items-center gap-2 text-xs font-bold text-[#4B5267] hover:text-[#8661C1] transition-colors';
+    ? 'flex items-center gap-2 text-xs font-bold custom-text-muted hover:text-[#5BE4F7] transition-colors'
+    : 'flex items-center gap-2 text-xs font-bold custom-text-muted hover:text-[#592E83] transition-colors';
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen custom-bg transition-colors duration-500`}>
@@ -752,10 +760,10 @@ export default function App() {
                   onClick={() => { setActiveTab(item.id); setMenuOpen(false); }}
                   className={`w-full flex items-center p-3 rounded-xl text-xs font-bold transition-all duration-300 transform active:scale-95 cursor-pointer ${
                     activeTab === item.id 
-                      ? 'bg-[#8661C1] text-white shadow-lg shadow-[#8661C1]/35 translate-x-1.5' 
+                      ? 'bg-[#592E83] text-[#CAA8F5] shadow-lg shadow-[#592E83]/35 translate-x-1.5' 
                       : darkMode
-                        ? 'text-[#98d9f7] hover:bg-white/5 hover:translate-x-1'
-                        : 'text-[#2E294E] hover:bg-[#98d9f7]/20 hover:text-[#8661C1] hover:translate-x-1'
+                        ? 'custom-text-muted hover:bg-white/10 hover:translate-x-1'
+                        : 'custom-text-muted hover:bg-[#5BE4F7]/20 hover:text-[#592E83] hover:translate-x-1'
                   }`}
                 >
                   <span className="opacity-85">{item.icon}</span>
@@ -796,7 +804,7 @@ export default function App() {
 
             <button 
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 bg-[#98d9f7]/20 dark:bg-white/5 rounded-full transition-all duration-500 hover:scale-110 hover:rotate-12 cursor-pointer"
+              className="p-2.5 bg-[#5BE4F7]/20 dark:bg-white/5 rounded-full transition-all duration-500 hover:scale-110 hover:rotate-12 cursor-pointer"
             >
               {darkMode ? '☀️' : '🌙'}
             </button>
