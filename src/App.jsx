@@ -775,13 +775,13 @@ export default function App() {
 
           <div className="pt-6 border-t border-[#98d9f7]/20">
             <a 
-              href="https://github.com" 
+              href="https://github.com/Alejandralx22" 
               target="_blank" 
               rel="noreferrer" 
               className={sidebarLinkClassName}
             >
               <CodeIcon />
-              <span>github.com/lopeli-audit</span>
+              <span>github</span>
             </a>
           </div>
         </aside>
